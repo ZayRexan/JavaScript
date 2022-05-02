@@ -5,6 +5,9 @@ const backspace = document.querySelector('.calc__btn-backspace')
 const myltiply = document.querySelector('.calc__btn-myltiply').innerText
 const division = document.querySelector('.calc__btn-division').innerText
 
+let firstNum = '';
+let secondNum = '';
+
 calc.addEventListener('click', function (event) {
 	if (!event.target.classList.contains('calc-inner__btn')) return;
 
@@ -20,7 +23,6 @@ calc.addEventListener('click', function (event) {
 	switch (value) {
 		case 'C':
 			result.innerText = '0';
-			console.log('clear')
 			result.style.fontSize = '96px'
 			break;
 
@@ -31,22 +33,28 @@ calc.addEventListener('click', function (event) {
 				for (let char of result.innerText) {
 					if (char == '÷') {
 						let arr = result.innerText.split('÷')
-						rez += arr.join('/')
+						firstNum = arr.shift()
+						secondNum = arr.pop()
+						result.innerText = firstNum / secondNum;
 					} else if (char == '×') {
 						let arr = result.innerText.split('×')
-						rez += arr.join('*')
+						firstNum = arr.shift()
+						secondNum = arr.pop()
+						result.innerText = firstNum * secondNum;
 					} else if (char == '+') {
 						let arr = result.innerText.split('+')
-						rez += arr.join('+')
+						firstNum = arr.shift()
+						secondNum = arr.pop()
+						result.innerText = firstNum + secondNum;
 					} else if (char == '-') {
 						let arr = result.innerText.split('-')
-						rez += arr.join('-')
+						firstNum = arr.shift()
+						secondNum = arr.pop()
+						result.innerText = firstNum - secondNum;
 					}
 				}
 			};
 			qwe();
-			result.innerText = eval(rez);
-
 			break;
 
 		default:
