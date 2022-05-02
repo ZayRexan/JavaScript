@@ -13,6 +13,7 @@ calc.addEventListener('click', function (event) {
 		case 'C':
 			result.innerText = '0';
 			console.log('clear')
+			result.style.fontSize = '96px'
 			break;
 
 		case '=':
@@ -45,11 +46,46 @@ calc.addEventListener('click', function (event) {
 			break;
 
 		default:
-			if(result.innerText == 0){
+			if (result.innerText == 0) {
 				result.innerText = ''
 			}
 			result.innerText += value;
 			console.log(value)
 			break;
 	}
+	if (result.innerText.length >= 6) {
+		result.style.fontSize = '85px'
+	};
+	if (result.innerText.length >= 8) {
+		result.style.fontSize = '65px'
+	}
+	if (result.innerText.length >= 11) {
+		result.style.fontSize = '47px'
+	}
+	if (result.innerText.length >= 14) {
+		result.style.fontSize = '35px'
+	}
 });
+
+document.addEventListener('keydown', function (event) {
+
+	console.log('keyCode:' + event.keyCode)
+
+	let rez = '';
+
+
+	if (event.keyCode == 8) {
+		result.innerText = result.innerText.slice(0, result.innerText.length - 1)
+	} else if (event.keyCode == 191) {
+		let rez = '';
+		let arr = result.innerText.split('÷')
+		rez += arr.join('/')
+	} else if (event.keyCode >= 48 && event.keyCode <= 57) {
+		if (result.innerText == 0) {
+			result.innerText = ''
+		}
+		result.innerText += event.key;
+		console.log(event.key)
+	}
+
+})
