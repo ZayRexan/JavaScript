@@ -35,32 +35,29 @@ calc.addEventListener('click', function (event) {
 			break;
 
 		case '=':
-			function qwe() {
-				for (let char of result.innerText) {
-					if (char == '÷') {
-						let arr = result.innerText.split('÷')
-						firstNum = arr.shift()
-						secondNum = arr.pop()
-						result.innerText = firstNum / secondNum;
-					} else if (char == '×') {
-						let arr = result.innerText.split('×')
-						firstNum = arr.shift()
-						secondNum = arr.pop()
-						result.innerText = firstNum * secondNum;
-					} else if (char == '+') {
-						let arr = result.innerText.split('+')
-						firstNum = arr.shift()
-						secondNum = arr.pop()
-						result.innerText = +firstNum + +secondNum;
-					} else if (char == '-') {
-						let arr = result.innerText.split('-')
-						firstNum = arr.shift()
-						secondNum = arr.pop()
-						result.innerText = firstNum - secondNum;
-					}
+			for (let char of result.innerText) {
+				if (char == '÷') {
+					let arr = result.innerText.split('÷')
+					firstNum = arr.shift()
+					secondNum = arr.pop()
+					result.innerText = firstNum / secondNum;
+				} else if (char == '×') {
+					let arr = result.innerText.split('×')
+					firstNum = arr.shift()
+					secondNum = arr.pop()
+					result.innerText = firstNum * secondNum;
+				} else if (char == '+') {
+					let arr = result.innerText.split('+')
+					firstNum = arr.shift()
+					secondNum = arr.pop()
+					result.innerText = +firstNum + +secondNum;
+				} else if (char == '-') {
+					let arr = result.innerText.split('-')
+					firstNum = arr.shift()
+					secondNum = arr.pop()
+					result.innerText = firstNum - secondNum;
 				}
-			};
-			qwe();
+			}
 			break;
 		default:
 			if (result.innerText == 0) {
@@ -72,42 +69,68 @@ calc.addEventListener('click', function (event) {
 
 	}
 
-
-	if (result.innerText.length >= 6) {
-		result.style.fontSize = '85px'
-	};
-	if (result.innerText.length >= 8) {
-		result.style.fontSize = '65px'
-	}
-	if (result.innerText.length >= 11) {
-		result.style.fontSize = '47px'
-	}
-	if (result.innerText.length >= 14) {
-		result.style.fontSize = '35px'
-	}
+	if (result.innerText.length >= 6) result.style.fontSize = '85px'
+	if (result.innerText.length >= 8) result.style.fontSize = '65px'
+	if (result.innerText.length >= 11) result.style.fontSize = '47px'
+	if (result.innerText.length >= 14) result.style.fontSize = '35px'
 });
 
 document.addEventListener('keydown', function (event) {
+
+	let value = event.target.innerText;
+
+	let last = result.innerText[result.innerText.length - 1]
+
+	if (value == "+" || value == "-" || value == "÷" || value == "×") {
+		if (last == "+" || last == "-" || last == "÷" || last == "×") {
+			result.innerText = result.innerText.slice(0, result.innerText.length - 1)
+		};
+	};
+
 	if (event.keyCode == 8) {
 		result.innerText = result.innerText.slice(0, result.innerText.length - 1)
-	} else if (event.keyCode >= 48 && event.keyCode <= 57) {
+	} else if (event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105) {
 		if (result.innerText == 0) {
 			result.innerText = ''
 		}
 		result.innerText += event.key;
+	} else if (event.keyCode == 191 || event.keyCode == 111) {
+		result.innerText += '÷';
+	} else if (event.keyCode == 106) {
+		result.innerText += '×';
+	} else if (event.keyCode == 107) {
+		result.innerText += '+';
+	} else if (event.keyCode == 109) {
+		result.innerText += '-';
+	} else if (event.keyCode == 13) {
+		for (let char of result.innerText) {
+			if (char == '÷') {
+				let arr = result.innerText.split('÷')
+				firstNum = arr.shift()
+				secondNum = arr.pop()
+				result.innerText = firstNum / secondNum;
+			} else if (char == '×') {
+				let arr = result.innerText.split('×')
+				firstNum = arr.shift()
+				secondNum = arr.pop()
+				result.innerText = firstNum * secondNum;
+			} else if (char == '+') {
+				let arr = result.innerText.split('+')
+				firstNum = arr.shift()
+				secondNum = arr.pop()
+				result.innerText = +firstNum + +secondNum;
+			} else if (char == '-') {
+				let arr = result.innerText.split('-')
+				firstNum = arr.shift()
+				secondNum = arr.pop()
+				result.innerText = firstNum - secondNum;
+			}
+		}
 	}
 
-	if (result.innerText.length >= 6) {
-		result.style.fontSize = '85px'
-	};
-	if (result.innerText.length >= 8) {
-		result.style.fontSize = '65px'
-	}
-	if (result.innerText.length >= 11) {
-		result.style.fontSize = '47px'
-	}
-	if (result.innerText.length >= 14) {
-		result.style.fontSize = '35px'
-	}
+	if (result.innerText.length >= 6) result.style.fontSize = '85px'
+	if (result.innerText.length >= 8) result.style.fontSize = '65px'
+	if (result.innerText.length >= 11) result.style.fontSize = '47px'
+	if (result.innerText.length >= 14) result.style.fontSize = '35px'
 
 })
