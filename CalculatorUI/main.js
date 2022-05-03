@@ -18,7 +18,15 @@ calc.addEventListener('click', function (event) {
 		}
 	}
 
-	const value = event.target.innerText;
+	let value = event.target.innerText;
+
+	let last = result.innerText[result.innerText.length - 1]
+
+	if (value == "+" || value == "-" || value == "÷" || value == "×") {
+		if (last == "+" || last == "-" || last == "÷" || last == "×") {
+			result.innerText = result.innerText.slice(0, result.innerText.length - 1)
+		};
+	};
 
 	switch (value) {
 		case 'C':
@@ -27,8 +35,6 @@ calc.addEventListener('click', function (event) {
 			break;
 
 		case '=':
-			let rez = '';
-
 			function qwe() {
 				for (let char of result.innerText) {
 					if (char == '÷') {
@@ -45,7 +51,7 @@ calc.addEventListener('click', function (event) {
 						let arr = result.innerText.split('+')
 						firstNum = arr.shift()
 						secondNum = arr.pop()
-						result.innerText = firstNum + secondNum;
+						result.innerText = +firstNum + +secondNum;
 					} else if (char == '-') {
 						let arr = result.innerText.split('-')
 						firstNum = arr.shift()
@@ -56,17 +62,17 @@ calc.addEventListener('click', function (event) {
 			};
 			qwe();
 			break;
-
 		default:
 			if (result.innerText == 0) {
 				result.innerText = ''
 			}
 			result.innerText += value;
-			console.log(value)
 			break;
 
 
 	}
+
+
 	if (result.innerText.length >= 6) {
 		result.style.fontSize = '85px'
 	};
@@ -82,11 +88,6 @@ calc.addEventListener('click', function (event) {
 });
 
 document.addEventListener('keydown', function (event) {
-
-	console.log('keyCode:' + event.keyCode)
-
-
-
 	if (event.keyCode == 8) {
 		result.innerText = result.innerText.slice(0, result.innerText.length - 1)
 	} else if (event.keyCode >= 48 && event.keyCode <= 57) {
@@ -94,7 +95,6 @@ document.addEventListener('keydown', function (event) {
 			result.innerText = ''
 		}
 		result.innerText += event.key;
-		console.log(event.key)
 	}
 
 	if (result.innerText.length >= 6) {
